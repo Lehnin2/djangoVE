@@ -50,4 +50,9 @@ class reservation(models.Model):
     reservation_date=models.DateTimeField(auto_now_add=True)
     class Meta:
         unique_together=('conference','Participant')
+    def clean(self) :
+        if self.conference.start_date<timezone.now().date():
+            raise ValidationError("you can only reserve for upcoming conference")
+
+        
         
