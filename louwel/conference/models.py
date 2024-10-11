@@ -16,6 +16,8 @@ class Conference(models.Model):
      created_at=models.DateTimeField(auto_now_add=True)
      updated_at=models.DateTimeField(auto_now=True)
      category=models.ForeignKey(category,on_delete=models.CASCADE)
+     def __str__(self):
+        return f"conference tittle : {self.title}"
      class Meta:
           constraints=[
                models.CheckConstraint(check=models.Q(start_date__gte= timezone.now().date()),name="The start date must be greater than today's date")

@@ -45,19 +45,23 @@ class Participant(AbstractUser):
     
 class reservation(models.Model):
     conference=models.ForeignKey(Conference,on_delete=models.CASCADE)
-    Participant=models.ForeignKey(Participant,on_delete=models.CASCADE)
+    participant=models.ForeignKey(Participant,on_delete=models.CASCADE)
     confirmed=models.BooleanField(default=False)
     reservation_date=models.DateTimeField(auto_now_add=True)
     class Meta:
-        unique_together=('conference','Participant')
+        unique_together=('conference','participant')
     def clean(self) :
         if self.conference.start_date<timezone.now().date():
             raise ValidationError("you can only reserve for upcoming conference")
+        
+        reservation_date_to_check = self.reservation_date or timezone.now()
+
+
         reservation_count=reservation.objects.filter(
-            Participant=self.Participant,
-            reservation=self.reservation_date
-            )
-        if reservation_count>=3:
+            participant=self.participant,
+            reservation_date__date=reservation_date_to_check.date()
+            ).count()
+        if reservation_count>=2:
             raise ValidationError("you can only make 3 reservation per day")                                         
 
         
