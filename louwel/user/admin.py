@@ -32,8 +32,8 @@ class ParticipantReservationFilter(admin.SimpleListFilter):
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ('username', 'first_name', 'last_name', 'email', 'participant_category', 'created_at')
     search_fields = ('username', 'first_name', 'last_name', 'email')
-    list_per_page = 10
-    ordering = ('username',)
+    list_per_page = 2
+    ordering = ('username',) #ordre inverse('_start_date')
     list_filter = ('participant_category', ParticipantReservationFilter)
     inlines = [ReservationInline]
 
@@ -83,6 +83,6 @@ class ReservationAdmin(admin.ModelAdmin):
     list_display = ('conference', 'participant', 'confirmed', 'reservation_date')
     search_fields = ('participant__username', 'conference__title')
     list_per_page = 10
-    list_filter = ('confirmed', ReservationDateFilter)
+    list_filter = ('confirmed', ReservationDateFilter,'participant')
     ordering = ('reservation_date',)
     actions = [mark_as_confirmed, mark_as_unconfirmed]

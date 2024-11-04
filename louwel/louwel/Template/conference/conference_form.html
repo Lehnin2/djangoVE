@@ -1,0 +1,7 @@
+<h1>formulaire de {% if object %}modification {% else %} creation {% endif %} de conference</h1>
+<form method="post" enctype="multipart/form-data">
+     {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">enregistrer</button>
+</form>
+<a href="{% url 'listviewconf' %}">annuler</a>

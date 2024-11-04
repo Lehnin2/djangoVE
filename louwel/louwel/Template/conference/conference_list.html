@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conference list</title>
+    <nav>
+        <ul>
+            {% if users.is_authenticated  %}
+            <li>welcome, {{users.username}},{{users.participant_category}}</li>
+            <li><a href="{% url 'logout' %}">logout</a></li>
+            {% else  %}
+            <li><a href="{% url 'login' %}">login</a></li>
+            <li><a href="{% url 'register' %}">register</a></li>
+            {% endif %} 
+        </ul>
+    </nav>
+</head>
+{% if user.is_authenticated %}
+    {% if user.participant_category == 'chercheur' %}
+    <a href="(% url 'conference_create' %)" >Ajouter une conference</a>
+    {% endif %}
+    {% endif %}
+<body>
+    <h1>Liste des Conférences</h1>
+    <a href="{% url 'conference_create' %}">ajouter conference</a>
+    <form method="get" action="{% url 'listviewconf' %}">
+    <select name="category" onchange="this.form.submit()" > <option >selectionner un choix</option>
+{% for cat in categories %}
+<option value="{{cat.id}}" >{{cat.title}}</option>
+{% endfor %}
+</select>
+</form>
+    {% if conferences %}
+        {% for conference in conferences %}
+            <fieldset>
+                <legend>{{ conference.title }}</legend>
+                <p><strong>Date de début :</strong> {{ conference.start_date }}</p>
+                <p><strong>Lieu :</strong> {{ conference.location }}</p>
+                <p><strong>Prix :</strong> {{ conference.price }} €</p>
+                <a href="{% url 'detailconf' conference.id %}">Details</a>
+                <a href="{% url 'conference_update' conference.id %}">modifier conference</a>
+                <a href="{% url 'conference_delete' conference.id %}">supprimer conference</a>
+            </fieldset>
+        {% endfor %}
+    {% else %}
+        <fieldset>
+            <legend>Aucune conférence disponible</legend>
+            <p>Aucune conférence n'est disponible pour le moment.</p>
+        </fieldset>
+    {% endif %}
+</body>
+</html>

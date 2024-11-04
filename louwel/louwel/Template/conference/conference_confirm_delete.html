@@ -1,0 +1,7 @@
+<h1>confirmation de supprimation</h1>
+<p>ete-vous sur de vouloir supprimer {{object.title}}?</p>
+<form method="post">
+    {% csrf_token %}
+     <button type="submit">supprimer</button>
+</form>
+<a href="{% url 'listviewconf' %}">annuler</a>

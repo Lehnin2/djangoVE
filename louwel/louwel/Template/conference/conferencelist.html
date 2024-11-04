@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>conference list</title>
+</head>
+<body>
+    <h1>Liste des Conférences</h1>
+
+    {% if conferencelist %}
+        {% for conference in conferencelist %}
+            <fieldset>
+                <legend>{{ conference.title }}</legend>
+                <p><strong>description :</strong> {{ conference.description }}</p>
+                <p><strong>Date de début :</strong> {{ conference.start_date }}</p>
+                <p><strong>Lieu :</strong> {{ conference.location }}</p>
+                <p><strong>Prix :</strong> {{ conference.price }} €</p>
+            </fieldset>
+        {% endfor %}
+    {% else %}
+        <fieldset>
+            <legend>Aucune conférence disponible</legend>
+            <p>Aucune conférence n'est disponible pour le moment.</p>
+        </fieldset>
+    {% endif %}
+</body>
+</html>

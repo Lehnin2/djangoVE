@@ -1,0 +1,14 @@
+<h1>Détails de la conférence : {{ conference.title }}</h1>
+
+<fieldset>
+    <p><strong>Description :</strong> {{ conference.description }}</p>
+    <p><strong>Date de début :</strong> {{ conference.start_date }}</p>
+    <p><strong>Date de fin :</strong> {{ conference.end_date }}</p>
+    <p><strong>Lieu :</strong> {{ conference.location }}</p>
+    <p><strong>Prix :</strong> {{ conference.price }}</p>
+    <p><strong>Capacité :</strong> {{ conference.capacity }}</p>
+    <p><strong>Programme :</strong> <a href="{{ conference.program.url }}" target="_blank">Télécharger le programme</a></p>
+    <p><strong>Catégorie :</strong> {{ conference.category.title }}</p>
+</fieldset>
+
+<a href="{% url 'listviewconf' %}">Retour à la liste des conférences</a>
